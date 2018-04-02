@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0 ;
+      padding: 0;
+    }
+    ul,ol{
+      list-style: none;
+    }
+    .homePage-banner {
+      position: relative;
+      width: 100%;
+      height: 560px;
+    }
+    .homePage-banner > .banner-box {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1920px;
+      height: 560px;
+      margin-left: -960px;
+      overflow: hidden;
+    }
+    .banner-box .banner-img-box {
+      position: relative;
+    }
+    .banner-box .banner-tab {
+      position: absolute;
+      top: 50%;
+      right: 400px;
+      width: 12px;
+    }
+    .banner-box .banner-tab li {
+      width: 8px;
+      height: 8px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .banner-box .banner-tab .active {
+      border-color: #ad0004;
+      background-color: #ad0004;
+    }
+  </style>
+</head>
+<body>
+  <!-- 作为一个小白前端，如果有更好的实现方式希望大神能够多多指导，邮箱：940258489@qq.com -->
+  <!-- 插件整体结构如下，可按需求进行结构上的筛选，例如：不需要tab按钮可删除ol标签 -->
+  <div class="homePage-banner">
+    <div class="banner-box">
+      <ul class="banner-img-box">
+        <li><img src="./1_02.jpg" width="1920" height="560" alt=""></li>
+        <li><img src="./2_02.jpg" width="1920" height="560" alt=""></li>
+        <li><img src="./3_02.jpg" width="1920" height="560" alt=""></li>
+      </ul> 
+      <ol class="banner-tab">
+      </ol> 
+    </div>
+    <!-- 下面的两个按钮仅仅为了显示整体结构，没有任何样式，如果需要使用左右按钮，请在插件中开启，并自行添加样式 -->
+    <a class="prev" href="javascript:;">上一个</a>
+    <a class="next" href="javascript:;">下一个</a>
+  </div>
+  <script src="./jquery-3.3.1.min.js"></script>
+  <script src="./jq-Cslide.js"></script>
+  <script>
+    $('.banner-box').SeamlessRolling({
+      imgBox: $('.banner-img-box'),  //轮播元素的父级，对应上面结构的 ul
+      tabEl: $('.banner-tab'),       // tab切换元素的父级，对应上面结构的ol
+      prev: $('.prev'),             // 左右切换按钮  “上一个” ，对应上面结构的 a标签prev
+      next: $('next'),              // 左右切换按钮 “下一个” ，....
+      tabShow: true,                // 是否显示tab切换按钮，默认为 false，不显示
+      btnRoll: true,                // 是否开启 左右切换按钮，默认false， 不开启，若要使用左右切换，记得在js中开启该选项
+      loopItem: true,               // 是否开启无缝轮播，默认开启 true
+      direction: 'top',             // 选择切换方向，四个方向可选，top,bottom,left,right
+      tabSpeed: 2000,               // 图片切换间隔，默认2s
+      animateSpeed: 1000,           // 切换效果所需时间，默认为1s,
+      autoPlay : true               // 是否开启自动轮播，默认开启 true
+    })
+  </script>
+</body>
+</html>
