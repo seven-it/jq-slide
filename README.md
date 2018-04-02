@@ -2,7 +2,7 @@
 自己封装一个简单的jq轮播插件
 ## 关于 jq-Cslide 轮播插件文档
 #### DEMO
-查看该demo,并查看demo源代码注释，更顺利的使用它
+查看该demo ,并查看demo源代码注释，更顺利的使用它
 [jq轮播插件](https://seven-it.github.io/jq-slide/)
 #### html结构
 
