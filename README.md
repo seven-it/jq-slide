@@ -60,19 +60,29 @@
 #### 关于css
 - 插件没有太多关注css,所以可以样式的使用就按需求实现即可
 
+#### 2018/04/03 更新，添加一个新功能 多图片无缝滚动 
+- API: multiImg 默认false
+- 在html结构上没有太大的变化，只是在使用 multiImg 时，是不能使用 tab切换按钮的，但可以使用prev,next这两个左右切换按钮
+- 注意事项 ：在使用 multiImg 时，不可使用 loopItem，因为这两个效果在html结构上有些变化 
+    - loopItem 对用 DEOM1的效果
+    - multiImg 对应 DEOM2的效果
 #### API
 - imgBox: $('.banner-img-box'),  //轮播元素的父级，对应上面结构的 ul
 - tabEl: $('.banner-tab'),       // tab切换元素的父级，对应上面结构的ol
 - prev: $('.prev'),             // 左右切换按钮  “上一个” ，对应上面结构的 a标签prev
 - next: $('next'),              // 左右切换按钮 “下一个” ，....
-- tabShow: true,                // 是否显示tab切换按钮，默认为 false，不显示
-- btnRoll: true,                // 是否开启 左右切换按钮，默认false， 不开启，若要使用左右切换，记得在js中开启该选项
+- tabShow: false,                // 是否显示tab切换按钮，默认为 false，不显示
+- btnRoll: false,                // 是否开启 左右切换按钮，默认false， 不开启，若要使用左右切换，记得在js中开启该选项
 - loopItem: true,               // 是否开启无缝轮播，默认开启 true
 - direction: 'top',             // 选择切换方向，四个方向可选，top,bottom,left,right
 - tabSpeed: 2000,               // 图片切换间隔，默认2s
 - animateSpeed: 1000,           // 切换效果所需时间，默认为1s,
-- autoPlay : true               // 是否开启自动轮播，默认开启 true
+- autoPlay : true,               // 是否开启自动轮播，默认开启 true
+- multiImg : false                  // 是否开启多图片无缝轮播 默认false
 
 #### 注意事项
 - imgBox，tabEl，prev，next 这4个选项传入的都是jq对象，对象的class可以自由命名，只要对应好结构即可，但是prev，next 最好能够使用例子中的命名，并且要防止命名冲突
 - prev，next 按钮，在demo中并没有添加任何样式，所以这两个按钮虽然开启了，但仍然是看不到的，想要测试可自行添加样式
+- 在使用 multiImg 时，不可使用 loopItem，因为这两个效果在html结构上有些变化 
+    - loopItem 对用 DEOM1的效果
+    - multiImg 对应 DEOM2的效果
