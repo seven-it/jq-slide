@@ -1,8 +1,9 @@
 /*
- * @Author: 陈炫彬 
+ * @Author: seven-it
  * @Date: 2018-04-02 09:11:18
  * @Last Modified time: 2018-04-03 11:54:19
  * @e-mail : 940258489@qq.com
+ * @gitHub : https://github.com/seven-it/jq-slide
  */
 (function ($) {
   var SeamlessRolling = function (el, options) {
