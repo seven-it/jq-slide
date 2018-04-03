@@ -1,7 +1,7 @@
 /*
  * @Author: 陈炫彬 
  * @Date: 2018-04-02 09:11:18
- * @Last Modified time: 2018-04-02 09:23:19
+ * @Last Modified time: 2018-04-03 11:54:19
  * @e-mail : 940258489@qq.com
  */
 (function ($) {
@@ -21,15 +21,16 @@
       direction: 'top',
       tabSpeed: 2000,
       animateSpeed: 1000,
-      autoPlay: true
+      autoPlay: true,
+      multiImg:false
     };
     this.settings = $.extend({}, this.defaults, options);
     this.$bannerImgBox = this.settings.imgBox;
     this.$bannerTab = this.settings.tabEl;
     this.$bannerImgItems = this.$bannerImgBox.children();
     this.$bannerTabItems = this.$bannerTab.children();
-    this.$bannerImgItemH = this.$bannerImgItems.outerHeight();
-    this.$bannerImgItemW = this.$bannerImgItems.outerWidth();
+    this.$bannerImgItemH = this.$bannerImgItems.outerHeight(true);
+    this.$bannerImgItemW = this.$bannerImgItems.outerWidth(true);
     this.properties = {};
 
 
@@ -51,6 +52,9 @@
     }
     if (this.settings.loopItem) {
       this.loopItem()
+    }
+    if (this.settings.multiImg) {
+      this.multiImgRoll(this.settings.direction)
     }
   }
   SeamlessRolling.prototype = {
@@ -117,68 +121,92 @@
         }
       })
       this.settings.prev.click(function () {
-        //判断轮播滚动方向，由于和autoplay()判断方式相同，封装到一个方法中公用switchDirection（）
         if (_this.bOk) {
           _this.bOk = false;
-          _this.switchDirection();
+        //由于 multiImg 与 loopItem 两个轮播的结构是不一样的，所以这一要做一个判断，不能同时开启两种轮播
+          if (_this.settings.multiImg) {
+            // 下面判断是因为该按钮是反向按钮，所以要进行反向调用轮播函数
+            switch (_this.settings.direction)
+            {
+              case 'bottom':
+                _this.multiImgRoll('top');
+                break;
+              case 'left':
+                _this.multiImgRoll('right');
+                break;
+              case 'top':
+                _this.multiImgRoll('bottom');
+                break;
+              case 'right':
+                _this.multiImgRoll('left');
+                break;
+            }
+          } else {
+            //判断轮播滚动方向，由于和autoplay()判断方式相同，封装到一个方法中公用switchDirection（）
+            _this.switchDirection();
+          }
         }
-
       })
       this.settings.next.click(function () {
-        // 该判断为next按钮轮播条件判断，与switchDirection() 方法判断只是方向位置发生了变化，其它逻辑完全一样
         if (_this.bOk) {
           _this.bOk = false;
-          switch (_this.settings.direction) {
-            case 'bottom':
-              _this.$bannerCount++;
-              _this.tabCount++
-              if (!_this.settings.loopItem && _this.$bannerCount >= _this.$bannerImgItems.length) {
-                _this.$bannerCount = 0;
-              }
-              if (_this.tabCount >= _this.$bannerTabItems.length) {
-                _this.tabCount = 0;
-              }
-              _this.ItemRoll(-_this.$bannerImgItemH, 'top')
-              break;
-            case 'top':
-              _this.$bannerCount--;
-              if (_this.tabCount <= 0) {
-                _this.tabCount = _this.$bannerTabItems.length;
-              }
-              _this.tabCount--;
-              if (!_this.settings.loopItem && _this.$bannerCount < 0) {
-                _this.$bannerCount = _this.$bannerImgItems.length - 1;
-              }
-              _this.ItemRoll(-_this.$bannerImgItemH, 'top')
-              break;
-            case 'right':
-              _this.$bannerCount++;
-              _this.tabCount++
-              if (!_this.settings.loopItem && _this.$bannerCount >= _this.$bannerImgItems.length) {
-                _this.$bannerCount = 0;
-              }
-              if (_this.tabCount >= _this.$bannerTabItems.length) {
-                _this.tabCount = 0;
-              }
-
-              _this.ItemRoll(-_this.$bannerImgItemW, 'left')
-              break;
-            case 'left':
-              _this.$bannerCount--;
-              if (_this.tabCount <= 0) {
-                _this.tabCount = _this.$bannerTabItems.length;
-              }
-              _this.tabCount--;
-              if (!_this.settings.loopItem && _this.$bannerCount < 0) {
-                _this.$bannerCount = _this.$bannerImgItems.length - 1;
-              }
-              _this.ItemRoll(-_this.$bannerImgItemW, 'left')
-              break;
+          //判断是否多图滚动
+          if (_this.settings.multiImg) {
+            _this.multiImgRoll(_this.settings.direction)
+          } else {
+              // 该判断为next按钮轮播条件判断，与switchDirection() 方法判断只是方向位置发生了变化，其它逻辑完全一样
+            switch (_this.settings.direction) {
+              case 'bottom':
+                _this.$bannerCount++;
+                _this.tabCount++
+                if (!_this.settings.loopItem && _this.$bannerCount >= _this.$bannerImgItems.length) {
+                  _this.$bannerCount = 0;
+                }
+                if (_this.tabCount >= _this.$bannerTabItems.length) {
+                  _this.tabCount = 0;
+                }
+                _this.ItemRoll(-_this.$bannerImgItemH, 'top')
+                break;
+              case 'top':
+                _this.$bannerCount--;
+                if (_this.tabCount <= 0) {
+                  _this.tabCount = _this.$bannerTabItems.length;
+                }
+                _this.tabCount--;
+                if (!_this.settings.loopItem && _this.$bannerCount < 0) {
+                  _this.$bannerCount = _this.$bannerImgItems.length - 1;
+                }
+                _this.ItemRoll(-_this.$bannerImgItemH, 'top')
+                break;
+              case 'right':
+                _this.$bannerCount++;
+                _this.tabCount++
+                if (!_this.settings.loopItem && _this.$bannerCount >= _this.$bannerImgItems.length) {
+                  _this.$bannerCount = 0;
+                }
+                if (_this.tabCount >= _this.$bannerTabItems.length) {
+                  _this.tabCount = 0;
+                }
+                _this.ItemRoll(-_this.$bannerImgItemW, 'left')
+                break;
+              case 'left':
+                _this.$bannerCount--;
+                if (_this.tabCount <= 0) {
+                  _this.tabCount = _this.$bannerTabItems.length;
+                }
+                _this.tabCount--;
+                if (!_this.settings.loopItem && _this.$bannerCount < 0) {
+                  _this.$bannerCount = _this.$bannerImgItems.length - 1;
+                }
+                _this.ItemRoll(-_this.$bannerImgItemW, 'left')
+                break;
+            }
           }
         }
       })
     },
     ItemRoll: function (distance, _direction) {
+      // 该方法对应loopItem开启时调用
       // 图片运动效果 使用animate进行
       var _this = this;
       // 下面保存的这个this.properties对象是因为在animate中
@@ -221,8 +249,14 @@
       // 开启自动轮播
       var _this = this;
       _this.timer = setInterval(function () {
-        //判断轮播滚动方向，由于和prev按钮判断方式相同，封装到一个方法中公用switchDirection（）
-        _this.switchDirection();
+        //下面判断的是否开始了多图片连续滚动，未开启就执行默认轮播
+        if (!_this.settings.multiImg){
+          //判断轮播滚动方向，由于和prev按钮判断方式相同，封装到一个方法中公用switchDirection（）
+          _this.switchDirection();
+        } else {
+          _this.multiImgRoll(_this.settings.direction);
+        }
+        
         _this.$bannerTabItems.removeClass('active')
         _this.$bannerTabItems.eq(_this.tabCount).addClass('active')
       }, _this.settings.tabSpeed)
@@ -294,6 +328,40 @@
           }
           _this.tabCount--;
           _this.ItemRoll(-_this.$bannerImgItemW, 'left')
+          break;
+      }
+    },
+    multiImgRoll: function (direction) {
+      // 该方法对应multiImg开启时调用
+      var _this = this,
+          animateSpeed = _this.settings.animateSpeed;
+      switch (direction)
+      {
+        case 'top':
+          this.$bannerImgBox.stop(true,true).animate({'top':-_this.$bannerImgItemH},animateSpeed,function(){
+            _this.$bannerImgBox.css('top',0).find("li:first").appendTo(_this.$bannerImgBox);
+            _this.bOk = true;
+          })
+          break;
+        case 'bottom':
+          _this.$bannerImgBox.find("li:last").prependTo(_this.$bannerImgBox);
+          _this.$bannerImgBox.css('top',-_this.$bannerImgItemH)
+          this.$bannerImgBox.stop(true,true).animate({'top':0},animateSpeed,function (){
+            _this.bOk = true;
+          })
+          break;
+        case 'left':
+          this.$bannerImgBox.stop(true,true).animate({'left':-_this.$bannerImgItemW},animateSpeed,function(){
+            _this.$bannerImgBox.css('left',0).find("li:first").appendTo(_this.$bannerImgBox);
+            _this.bOk = true;
+          })
+          break;
+        case 'right':
+          _this.$bannerImgBox.find("li:last").prependTo(_this.$bannerImgBox);
+          _this.$bannerImgBox.css('left',-_this.$bannerImgItemW);
+          this.$bannerImgBox.stop(true,true).animate({'left':0},animateSpeed,function(){
+            _this.bOk = true;
+          })
           break;
       }
     }
