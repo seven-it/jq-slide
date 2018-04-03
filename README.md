@@ -3,9 +3,12 @@
 ## 关于 jq-Cslide 轮播插件文档
 #### 兼容性
 插件目前兼容PC端，IE9+,chrome,firefox
-#### DEMO
+#### DEMO1
 查看该demo ,并查看demo源代码注释，更顺利的使用它
-[jq轮播插件](https://seven-it.github.io/jq-slide/)
+[常用首屏banner轮播Demo](https://seven-it.github.io/jq-slide/demo1/)
+#### DEMO2
+查看该demo ,并查看demo源代码注释，更顺利的使用它
+[多图无缝滚动Demo](https://seven-it.github.io/jq-slide/demo2/)
 #### html结构
 
 ```javascript

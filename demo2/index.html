@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0 ;
+      padding: 0;
+    }
+    ul,ol{
+      list-style: none;
+    }
+    .partner-roll {
+      width: 1200px;
+      position: relative;
+      margin: 0 auto;
+    }
+    .partner-cont-wrapper {
+      display: inline-block;
+      width: 1136px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .partner-cont {
+      position: relative;
+      font-size: 0;
+      width: 1500px;
+    }
+    .partner-cont li{
+      display: inline-block;
+      text-align: center;
+      line-height: 70px;
+      width: 183px;
+      height: 70px;
+      border: 1px solid #bababa;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+    .partner-cont li img{
+      max-width: 183px;
+      max-height: 70px;
+    }
+    .partner-prev,
+    .partner-next {
+      display: inline-block;
+      width: 26px;
+      height: 70px;
+      cursor: pointer;
+    }
+    .partner-prev {
+      float: left;
+      background: url('./images/prve.png') center left no-repeat;
+    }
+    .partner-next {
+      float: right;
+      background: url('./images/next.png') center right no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <!-- 作为一个小白前端，如果有更好的实现方式希望大神能够多多指导，邮箱：940258489@qq.com -->
+  <!-- 插件整体结构如下，可按需求进行结构上的筛选，例如：不需要tab按钮可删除ol标签 -->
+  <div class="partner-roll">
+    <div class="partner-cont-wrapper">
+        <ul class="partner-cont">
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/0.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/1.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray c" src="./images/2.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/3.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/4.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/5.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/6.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/7.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/8.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/9.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/10.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/11.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/12.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/13.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/14.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/15.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img class="gray" src="./images/16.jpg" alt="">
+            </a>
+          </li>
+        </ul>
+        
+    </div>
+    <span class="partner-prev"></span>
+    <span class="partner-next"></span>
+  </div>
+    <!-- 下面的两个按钮仅仅为了显示整体结构，没有任何样式，如果需要使用左右按钮，请在插件中开启，并自行添加样式 -->
+  </div>
+  <script src="../jquery-3.3.1.min.js"></script>
+  <script src="../jq-Cslide.js"></script>
+  <script>
+    $('.partner-cont-wrapper').SeamlessRolling({
+      imgBox:$('.partner-cont'),
+      prev:$('.partner-prev'),
+      next:$('.partner-next'),
+      multiImg: true,  // 开启多图无缝滚动
+      btnRoll:true,
+      direction: 'left'
+    })
+  </script>
+</body>
+</html>
