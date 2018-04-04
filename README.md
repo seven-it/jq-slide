@@ -9,6 +9,9 @@
 #### DEMO2
 查看该demo ,并查看demo源代码注释，更顺利的使用它
 [多图无缝滚动Demo](https://seven-it.github.io/jq-slide/demo2/)
+#### DEMO3
+查看该demo ,并查看demo源代码注释，更顺利的使用它
+[multiImg回调函数](https://seven-it.github.io/jq-slide/demo3/)
 #### html结构
 
 ```javascript
@@ -67,6 +70,7 @@
     - loopItem 对用 DEOM1的效果
     - multiImg 对应 DEOM2的效果
 #### API
+##### 基础API
 - imgBox: $('.banner-img-box'),  //轮播元素的父级，对应上面结构的 ul
 - tabEl: $('.banner-tab'),       // tab切换元素的父级，对应上面结构的ol
 - prev: $('.prev'),             // 左右切换按钮  “上一个” ，对应上面结构的 a标签prev
@@ -79,7 +83,15 @@
 - animateSpeed: 1000,           // 切换效果所需时间，默认为1s,
 - autoPlay : true,               // 是否开启自动轮播，默认开启 true
 - multiImg : false                  // 是否开启多图片无缝轮播 默认false
-
+##### 开启multiImg时的回调函数
+- 查看[multiImg回调函数](https://seven-it.github.io/jq-slide/demo3/) 打开控制台观察
+- multiAnimationAfter: function (dic){}
+    - 该函数在每次轮播动画结束并且html结构变换完成后触发，默认参数为：direction 自定义的方向。
+- multiImgSwitchAfter: function (dic){}
+    - 当点击左右按钮，使得滚动方向与定义的方向相反时，html结构变换完成后，轮播动画开始前触发， 默认参数为：direction。
+- multiAnimationBefore: function (dic) {}
+    - 滚动开始前触发
+        
 #### 注意事项
 - imgBox，tabEl，prev，next 这4个选项传入的都是jq对象，对象的class可以自由命名，只要对应好结构即可，但是prev，next 最好能够使用例子中的命名，并且要防止命名冲突
 - prev，next 按钮，在demo中并没有添加任何样式，所以这两个按钮虽然开启了，但仍然是看不到的，想要测试可自行添加样式

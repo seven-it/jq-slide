@@ -23,7 +23,11 @@
       tabSpeed: 2000,
       animateSpeed: 1000,
       autoPlay: true,
-      multiImg:false
+      multiImg:false,
+      multiAnimationAfter: function (direction) {},
+      multiImgSwitchAfter: function (direction) {},
+      multiAnimationBefore: function (direction) {}
+      
     };
     this.settings = $.extend({}, this.defaults, options);
     this.$bannerImgBox = this.settings.imgBox;
@@ -51,17 +55,14 @@
     if (this.settings.autoPlay) {
       this.autoPlay()
     }
-    if (this.settings.loopItem) {
+    if (this.settings.loopItem && !this.settings.multiImg) {
       this.loopItem()
-    }
-    if (this.settings.multiImg) {
-      this.multiImgRoll(this.settings.direction)
     }
   }
   SeamlessRolling.prototype = {
     initCss: function (_direction, distance) {
       //开启循环轮播时，初始化css样式
-      if (this.settings.loopItem) {
+      if (this.settings.loopItem && !this.settings.multiImg) {
         this.$bannerImgBox.css(_direction, -distance)
         this.$bannerCount = 1;
       }
@@ -339,28 +340,41 @@
       switch (direction)
       {
         case 'top':
+          // multiAnimation开始切换之前
+          _this.settings.multiAnimationBefore(direction);
           this.$bannerImgBox.stop(true,true).animate({'top':-_this.$bannerImgItemH},animateSpeed,function(){
             _this.$bannerImgBox.css('top',0).find("li:first").appendTo(_this.$bannerImgBox);
+            //当运动结束后触发multiAnimationAfter钩子函数，默认接收一个参数，为当前的direction值，可以使用该值做判断处理对应的逻辑
+            _this.settings.multiAnimationAfter(direction);
             _this.bOk = true;
           })
           break;
         case 'bottom':
+          _this.settings.multiAnimationBefore(direction);
           _this.$bannerImgBox.find("li:last").prependTo(_this.$bannerImgBox);
+          //反向滚动时，图片就位后，运动开始前出发的钩子函数
+          _this.settings.multiImgSwitchAfter(direction);
           _this.$bannerImgBox.css('top',-_this.$bannerImgItemH)
           this.$bannerImgBox.stop(true,true).animate({'top':0},animateSpeed,function (){
+            _this.settings.multiAnimationAfter(direction);
             _this.bOk = true;
           })
           break;
         case 'left':
+          _this.settings.multiAnimationBefore(direction);
           this.$bannerImgBox.stop(true,true).animate({'left':-_this.$bannerImgItemW},animateSpeed,function(){
             _this.$bannerImgBox.css('left',0).find("li:first").appendTo(_this.$bannerImgBox);
+            _this.settings.multiAnimationAfter(direction);
             _this.bOk = true;
           })
           break;
         case 'right':
+          _this.settings.multiAnimationBefore(direction);
           _this.$bannerImgBox.find("li:last").prependTo(_this.$bannerImgBox);
+          _this.settings.multiImgSwitchAfter(direction);
           _this.$bannerImgBox.css('left',-_this.$bannerImgItemW);
           this.$bannerImgBox.stop(true,true).animate({'left':0},animateSpeed,function(){
+            _this.settings.multiAnimationAfter(direction);
             _this.bOk = true;
           })
           break;
