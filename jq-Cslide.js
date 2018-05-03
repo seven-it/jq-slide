@@ -53,6 +53,7 @@
       this.btnRoll()
     }
     if (this.settings.autoPlay) {
+      clearInterval(this.timer)
       this.autoPlay()
     }
     if (this.settings.loopItem && !this.settings.multiImg) {
